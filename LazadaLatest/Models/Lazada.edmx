@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LazadaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="totalPrice" Type="float" />
+          <Property Name="totalQuantity" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="ProductCarts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="cartId" Type="int" />
+          <Property Name="checkoutDate" Type="datetime2" Precision="7" />
+          <Property Name="quantityPurchased" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="prodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prodName" Type="varchar" MaxLength="50" />
+          <Property Name="prodDesc" Type="varchar" MaxLength="50" />
+          <Property Name="prodPrice" Type="float" />
+          <Property Name="prodQuan" Type="int" />
+        </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="userPass" Type="varchar" MaxLength="50" />
+          <Property Name="userRoles" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Carts__userId__36B12243">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Carts" Type="Self.Carts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Carts">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductCa__cartI__3A81B327">
+          <End Role="Carts" Type="Self.Carts" Multiplicity="0..1" />
+          <End Role="ProductCarts" Type="Self.ProductCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCarts">
+              <PropertyRef Name="cartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductCa__produ__398D8EEE">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductCarts" Type="Self.ProductCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="ProductCarts">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LazadaModelStoreContainer">
+          <EntitySet Name="Carts" EntityType="Self.Carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCarts" EntityType="Self.ProductCarts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Carts__userId__36B12243" Association="Self.FK__Carts__userId__36B12243">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Carts" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCa__cartI__3A81B327" Association="Self.FK__ProductCa__cartI__3A81B327">
+            <End Role="Carts" EntitySet="Carts" />
+            <End Role="ProductCarts" EntitySet="ProductCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCa__produ__398D8EEE" Association="Self.FK__ProductCa__produ__398D8EEE">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductCarts" EntitySet="ProductCarts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LazadaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="prodId" />
+          </Key>
+          <Property Name="prodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prodDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prodPrice" Type="Double" />
+          <Property Name="prodQuan" Type="Int32" />
+          <NavigationProperty Name="ProductCarts" Relationship="LazadaModel.FK__ProductCa__produ__398D8EEE" FromRole="Product" ToRole="ProductCart" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userPass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userRoles" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Carts" Relationship="LazadaModel.FK__Carts__userId__36B12243" FromRole="User" ToRole="Cart" />
+        </EntityType>
+        <EntityContainer Name="LazadaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Carts" EntityType="LazadaModel.Cart" />
+          <EntitySet Name="ProductCarts" EntityType="LazadaModel.ProductCart" />
+          <AssociationSet Name="FK__Carts__userId__36B12243" Association="LazadaModel.FK__Carts__userId__36B12243">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCa__cartI__3A81B327" Association="LazadaModel.FK__ProductCa__cartI__3A81B327">
+            <End Role="Cart" EntitySet="Carts" />
+            <End Role="ProductCart" EntitySet="ProductCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductCa__produ__398D8EEE" Association="LazadaModel.FK__ProductCa__produ__398D8EEE">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductCart" EntitySet="ProductCarts" />
+          </AssociationSet>
+          <EntitySet Name="Sessions" EntityType="LazadaModel.Session" />
+        </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="totalPrice" Type="Double" />
+          <Property Name="totalQuantity" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="LazadaModel.FK__Carts__userId__36B12243" FromRole="Cart" ToRole="User" />
+          <NavigationProperty Name="ProductCarts" Relationship="LazadaModel.FK__ProductCa__cartI__3A81B327" FromRole="Cart" ToRole="ProductCart" />
+          <Property Name="status" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProductCart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="cartId" Type="Int32" />
+          <NavigationProperty Name="Cart" Relationship="LazadaModel.FK__ProductCa__cartI__3A81B327" FromRole="ProductCart" ToRole="Cart" />
+          <NavigationProperty Name="Product" Relationship="LazadaModel.FK__ProductCa__produ__398D8EEE" FromRole="ProductCart" ToRole="Product" />
+          <Property Name="checkoutDate" Type="DateTime" Precision="7" />
+          <Property Name="quantityPurchased" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__Carts__userId__36B12243">
+          <End Type="LazadaModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="LazadaModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductCa__cartI__3A81B327">
+          <End Type="LazadaModel.Cart" Role="Cart" Multiplicity="0..1" />
+          <End Type="LazadaModel.ProductCart" Role="ProductCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductCart">
+              <PropertyRef Name="cartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductCa__produ__398D8EEE">
+          <End Type="LazadaModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="LazadaModel.ProductCart" Role="ProductCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="prodId" />
+            </Principal>
+            <Dependent Role="ProductCart">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LazadaModelStoreContainer" CdmEntityContainer="LazadaEntities">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(LazadaModel.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="prodId" ColumnName="prodId" />
+          <ScalarProperty Name="prodName" ColumnName="prodName" />
+          <ScalarProperty Name="prodDesc" ColumnName="prodDesc" />
+          <ScalarProperty Name="prodPrice" ColumnName="prodPrice" />
+          <ScalarProperty Name="prodQuan" ColumnName="prodQuan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(LazadaModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userId" ColumnName="userId" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userPass" ColumnName="userPass" />
+          <ScalarProperty Name="userRoles" ColumnName="userRoles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="LazadaModel.Cart">
+              <MappingFragment StoreEntitySet="Carts">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCarts">
+            <EntityTypeMapping TypeName="LazadaModel.ProductCart">
+              <MappingFragment StoreEntitySet="ProductCarts">
+                <ScalarProperty Name="quantityPurchased" ColumnName="quantityPurchased" />
+                <ScalarProperty Name="checkoutDate" ColumnName="checkoutDate" />
+                <ScalarProperty Name="cartId" ColumnName="cartId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sessions">
+            <EntityTypeMapping TypeName="LazadaModel.Session">
+              <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

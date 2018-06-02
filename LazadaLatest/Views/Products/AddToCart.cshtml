@@ -1,0 +1,71 @@
+﻿@model IEnumerable<LazadaLatest.Models.Product>
+
+@{
+    ViewBag.Title = "AddToCart";
+}
+
+<h2>Add To Cart</h2>
+
+<p>
+    @Html.ActionLink("Add More Items", "Index")
+</p>
+
+@if (@ViewBag.ErrorMsg!=null)
+{
+    <h3 style="color: red"> @ViewBag.ErrorMsg</h3>
+}
+
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.prodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prodDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prodPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prodQuan)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prodDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prodPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.prodQuan)
+                </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.prodId })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink("Edit", "EditC", new { id = item.prodId })</td>
+                        <td>@Html.ActionLink("Delete", "DeleteFromCart", new { id = item.prodId })</td>
+                    }
+                }
+            </tr>
+
+        }
+
+    </table>
+    <h4>@Html.ActionLink("Checkout", "Checkout")</h4>
+}
+

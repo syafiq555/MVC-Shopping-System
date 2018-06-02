@@ -1,0 +1,55 @@
+﻿@model LazadaLatest.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.prodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prodName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prodDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prodDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prodPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prodPrice)
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prodQuan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prodQuan)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.prodId }) 
+    }
+    |
+    @Html.ActionLink("Back to List", "Index")
+</p>

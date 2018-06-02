@@ -1,0 +1,51 @@
+﻿@model LazadaLatest.Models.ProductCart
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ProductCart</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.checkoutDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.checkoutDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantityPurchased)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantityPurchased)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cart.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cart.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.prodName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.prodName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

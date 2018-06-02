@@ -1,0 +1,57 @@
+﻿@model IEnumerable<LazadaLatest.Models.ProductCart>
+
+@{
+    ViewBag.Title = "Carts List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Carts List</h2>
+
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                User ID
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.checkoutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantityPurchased)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.prodName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cart.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.checkoutDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityPurchased)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cart.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.prodName)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

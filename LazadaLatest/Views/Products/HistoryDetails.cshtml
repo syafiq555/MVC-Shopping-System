@@ -1,0 +1,62 @@
+﻿@model LazadaLatest.ViewModels.HistoryVM
+@{
+    ViewBag.Title = "HistoryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>History Details</h2>
+<h3>Purchase Date: @Model.purchaseDate</h3>
+<h3>Purchase By: @Model.User.userName</h3>
+
+@if (Model.Products != null)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Price per Unit (RM)
+            </th>
+            <th>
+                Quantity Purchased
+            </th>
+            <th>
+                Total Price (RM)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @item.Product.prodName
+                </td>
+                <td>
+                    @item.Product.prodDesc
+                </td>
+                <td>
+                    @item.Product.prodPrice.Value.ToString("0.00")
+                </td>
+                <td>
+                    @item.quantityPurchased
+                </td>
+                <td>
+                    @item.getTotalPrice().ToString("0.00")
+                </td>
+
+
+            </tr>
+        }
+
+
+    </table>
+}
+
+
+<h3 style="color:darkorange">TOTAL ITEMS: @Model.totalQuantity pcs</h3>
+<h3 style="color:darkorange">TOTAL PRICE (RM): @Model.totalPrice.ToString("0.00")</h3>
+

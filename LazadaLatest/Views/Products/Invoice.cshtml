@@ -1,0 +1,27 @@
+﻿@model LazadaLatest.ViewModels.ProductCartVM
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Invoice, @Model.User.userName</h2>
+<h4>List of Items in your cart</h4>
+<table class="table table-hover">
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Quantity</th>
+    </tr>
+    @foreach (var item in Model.Products)
+    {
+    <tr>
+        <td>@item.prodName</td>
+        <td>@item.prodPrice.Value.ToString("0.00")</td>
+        <td>@item.prodQuan</td>
+    </tr>
+    }
+</table>
+
+<h4 style="color:darkorange">Total Price for @Model.totalQuantity item(s) in your cart is RM @Model.totalPrice.ToString("0.00")</h4>
+
+
