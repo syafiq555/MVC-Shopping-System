@@ -29,12 +29,20 @@ namespace LazadaLatest.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
+            //Cart cart = db.Carts.Find(id);
+            /*if (cart == null)
             {
                 return HttpNotFound();
             }
-            return View(cart);
+            return View(cart);*/
+
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+
         }
         
         protected override void Dispose(bool disposing)
