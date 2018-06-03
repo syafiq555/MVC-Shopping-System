@@ -32,7 +32,8 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Cart.Id)
+           
+            @Html.ActionLink(item.Cart.Id.ToString(), "Details", "Users", new { id = item.Cart.Id },null)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.checkoutDate)
